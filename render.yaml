@@ -1,0 +1,19 @@
+databases:
+- databaseName: rhinowatchsa
+  name: rhino-watch-db
+  plan: free
+  user: rhinowatch
+services:
+- buildCommand: pip install -r requirements_render.txt
+  env: python
+  envVars:
+  - key: PYTHON_VERSION
+    value: 3.11.0
+  - generateValue: true
+    key: SECRET_KEY
+  - generateValue: true
+    key: JWT_SECRET_KEY
+  name: rhino-watch-sa
+  plan: free
+  startCommand: gunicorn --bind 0.0.0.0:$PORT wsgi:app
+  type: web
